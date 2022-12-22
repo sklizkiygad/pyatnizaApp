@@ -16,6 +16,7 @@
   import HeaderSidebar from "@/components/HeaderSidebar";
   import IsExitBlock from "@/components/IsExitBlock";
   import Training from "@/components/Training";
+  import axios from "axios";
 
   // require("./assets/css/vendors/bootstrap.css");
   // require("./assets/css/vendors/slick-theme.css");
@@ -68,6 +69,38 @@
       //     }
       //   }
       // },
+     async toRefreshToken(){
+       const userToken={
+         headers: {
+           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+           Authorization: `Bearer ${JSON.parse(localStorage.getItem('accTinder')).access_token}`
+         },
+         params: {
+           refreshToken:JSON.parse(localStorage.getItem('accTinder')).refresh_token
+         }
+       }
+       await axios.get(`${this.$store.state.mainServer}/api/user/refresh-access-token`,userToken).then(res=>{
+         console.log(res);
+         let localStorageAcc = JSON.parse(localStorage.getItem('accTinder'));
+         localStorageAcc.accInfo=res.data.data;
+         localStorage.setItem('accTinder',JSON.stringify(localStorageAcc));
+       }).catch((err)=>{
+         console.log(err)
+       })
+      },
+
+      checkIsTokenExpired(){
+        let dateNow=new Date();
+        let dateExpired=new Date(JSON.parse(localStorage.getItem('accTinder')).access_token_expired_at)
+        if(dateNow< dateExpired){
+          console.log('ок')
+        }
+        else{
+          this.toRefreshToken();
+
+        }
+
+      },
 
       changeColorScheme(){
 
@@ -107,6 +140,11 @@
 
     mounted() {
       this.checkDarkTheme();
+
+      if(localStorage.getItem('accTinder')){
+        this.checkIsTokenExpired()
+      }
+
     },
     watch:{
       '$store.state.isDarkTheme'(){
