@@ -1,9 +1,11 @@
 <template>
     <section class="user-avtar-section top-space pt-0 px-15">
         <h1 class="mt-2 mb-2">Добавьте свое фото</h1>
-        <label for="photo-profile"><img  :src="inputPhoto !==null ? (inputPhoto):(require('../assets/images/user/1.png'))" class="img-fluid" alt=""></label>
+        <label @click="checkCam"><img  :src="inputPhoto !==null ? (inputPhoto):(require('../assets/images/user/1.png'))" class="img-fluid" alt=""></label>
+<!--        <h1 @click="checkCam">ffffff</h1>-->
+<!--        <input id="photo-profile"type="file" accept='image/*' @change="previewFiles">-->
 
-        <input id="photo-profile"type="file" accept='image/*' @change="previewFiles">
+
         <h1 class="mt-2 mb-2">(Нажмите на иконку для того, чтобы загрузить изображение)</h1>
         <button v-show="inputPhoto !== null" @click="postSendPhoto" class="btn btn-solid">Установить фото</button>
     </section>
@@ -11,6 +13,8 @@
 
 <script>
     import axios from "axios";
+    import {Camera,CameraResultType} from "@capacitor/camera";
+
 
     export default {
         data(){
@@ -25,6 +29,7 @@
                 const file = e.target.files[0];
                 this.inputPhoto = URL.createObjectURL(file);
                 this.sendPhoto=file;
+                console.log(file)
             },
            async checkIsAccPhoto(){
                const userToken={
@@ -69,6 +74,23 @@
                     console.log(err.response)
                     this.$store.commit('setError',{typeErr:3,textErr:'Не удалось установить фото!'})
                 })
+            },
+
+            async checkCam(){
+
+                await Camera.getPhoto({
+                    quality: 90,
+                    allowEditing: false,
+                    resultType: CameraResultType.Uri
+                }).then(async (image) => {
+
+                    console.log(image)
+
+                    let blob = await fetch(image.webPath).then(r => r.blob());
+                    this.inputPhoto=image.webPath;
+                    this.sendPhoto=blob;
+                });
+
             }
         },
 
@@ -84,6 +106,6 @@
     cursor: pointer;
 }
     #photo-profile{
-        display: none;
+        /*display: none;*/
     }
 </style>

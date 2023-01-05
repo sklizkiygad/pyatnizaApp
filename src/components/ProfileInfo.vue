@@ -9,12 +9,13 @@
 <!--            </label>-->
             <img  @click="openPhoto" :src="changePhoto ? changePhoto : (inputPhoto && inputPhoto !== 'N/A' ? `${this.$store.state.mainServer}/${inputPhoto}`: require('../assets/images/user/1.png'))" class="profile-img-big" />
             <label
-                   for="profileImg"
+
             >
-                <a class="btn btn-outline mt-2">Сменить фото</a>
+                <a class="btn btn-outline mt-2" @click="previewFiles">Сменить фото</a>
 
             </label>
-            <input id="profileImg" type="file" accept='image/*' @change="previewFiles">
+<!--            <input id="profileImg" type="file" accept='image/*' @change="previewFiles">-->
+
 
 
         </section>
@@ -138,6 +139,7 @@
     import checkFormMixin from "@/mixins/checkFormMixin";
     import PhotoWatch from "@/components/PhotoWatch";
     import axios from "axios";
+    import {Camera, CameraResultType} from "@capacitor/camera";
 
     export default {
         mixins:[checkFormMixin],
@@ -230,13 +232,25 @@
                     this.inputRangeFrom=this.inputRangeTo;
                 }
             },
-           async previewFiles(e){
-                const file = e.target.files[0];
-                this.changePhoto = URL.createObjectURL(file);
+            async previewFiles(){
+
+                await Camera.getPhoto({
+                    quality: 90,
+                    allowEditing: false,
+                    resultType: CameraResultType.Uri
+                }).then(async (image) => {
+
+                    console.log(image)
+
+                    let blob = await fetch(image.webPath).then(r => r.blob());
+                    this.sendPhoto=blob;
+                });
+
+                this.$store.commit('setIsLoading',true);
                 let formData = new FormData();
-                formData.append('photo', file);
+                formData.append('photo',  this.sendPhoto);
                 let sendPhoto={
-                    photo:e.target.files[0]
+                    photo: this.sendPhoto
                 }
 
                 await axios.post(`${this.$store.state.mainServer}/api/user-profile/set-photo`,sendPhoto,{
@@ -247,11 +261,65 @@
                         Authorization: `Bearer ${JSON.parse(localStorage.getItem('accTinder')).access_token}`
                     }}).then(res=>{
                     console.log(res)
+                    let atLocalStorage=JSON.parse(localStorage.getItem('accTinder'));
+                    atLocalStorage.accInfo.photo=res.data.data;
+                    localStorage.setItem('accTinder',JSON.stringify(atLocalStorage));
+
                 }).catch(err=>{
-                    console.log(err.response)
+                    console.log(err)
+                    this.$store.commit('setError',{typeErr:3,textErr:'Не удалось установить фото!'})
                 })
-               await this.getAccountInfo()
+
+                await this.getAccountInfo()
             },
+           // async previewFiles(e){
+           //      // const file = e.target.files[0];
+           //      // this.changePhoto = URL.createObjectURL(file);
+           //      // let formData = new FormData();
+           //      // formData.append('photo', file);
+           //      // let sendPhoto={
+           //      //     photo:e.target.files[0]
+           //      // }
+           //      //
+           //
+           //     await Camera.getPhoto({
+           //         quality: 90,
+           //         allowEditing: false,
+           //         resultType: CameraResultType.Uri
+           //     }).then(async (image) => {
+           //
+           //         console.log(image)
+           //
+           //         let blob = await fetch(image.webPath).then(r => r.blob());
+           //
+           //         let sendPhoto={
+           //             photo:blob
+           //         }
+           //          await axios.post(`${this.$store.state.mainServer}/api/user-profile/set-photo`,sendPhoto,{
+           //          headers: {
+           //              'accept': 'application/json',
+           //              'Accept-Language': 'en-US,en;q=0.8',
+           //              'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
+           //              Authorization: `Bearer ${JSON.parse(localStorage.getItem('accTinder')).access_token}`
+           //          }}).then(res=>{
+           //          console.log(res)
+           //      }).catch(err=>{
+           //          console.log(err.response)
+           //      })
+           //     });
+           //     // await axios.post(`${this.$store.state.mainServer}/api/user-profile/set-photo`,sendPhoto,{
+           //     //     headers: {
+           //     //         'accept': 'application/json',
+           //     //         'Accept-Language': 'en-US,en;q=0.8',
+           //     //         'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
+           //     //         Authorization: `Bearer ${JSON.parse(localStorage.getItem('accTinder')).access_token}`
+           //     //     }}).then(res=>{
+           //     //     console.log(res)
+           //     // }).catch(err=>{
+           //     //     console.log(err.response)
+           //     // })
+           //     await this.getAccountInfo()
+           //  },
             // exitAccount(){
             //     localStorage.removeItem('accTinder');
             //     this.$router.push('/');

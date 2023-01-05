@@ -1,6 +1,10 @@
 <template>
     <div class="filter-content chats-holder">
-        <div class="item order" v-for="item in chatList">
+        <div v-if="!chatList.length"  class="empty-list">
+            <h2>Список чатов пуст</h2>
+        </div>
+
+        <div v-else class="item order" v-for="item in chatList">
             <div class="media" >
                 <img @click="$router.push(`/candidate/${item.id}`)" :src="item.photo && item.photo !== 'N/A' ? `${$store.state.mainServer}/${item.photo}`: require('../assets/images/user/1.png')" class="img-fluid">
                 <div class="media-body" @click="$router.push(`/chat/${item.id}`)">
@@ -10,6 +14,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </template>
 
@@ -67,5 +72,9 @@
     .media-body{
         width: 100%;
         cursor: pointer;
+    }
+    .empty-list{
+        text-align: center;
+
     }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" @touchstart="touchStart" @touchEndMethod="touchEnd">
     <MyLoader/>
     <Training/>
     <IsExitBlock/>
@@ -38,37 +38,37 @@
       Training
     },
     methods:{
-      // touchStart (touchEvent) {
-      //   if(localStorage.getItem('accTinder')){
-      //     if('accInfo' in JSON.parse(localStorage.getItem('accTinder'))){
-      //       if (touchEvent.changedTouches.length !== 1) { // We only care if one finger is used
-      //         return;
-      //       }
-      //       const posXStart = touchEvent.changedTouches[0].clientX;
-      //
-      //         addEventListener('touchend', (touchEvent) => this.touchEnd(touchEvent, posXStart), {once: true});
-      //     }
-      //   }
-      //
-      // },
-      //
-      // touchEnd (touchEvent, posXStart) {
-      //   if(localStorage.getItem('accTinder')){
-      //     if('accInfo' in JSON.parse(localStorage.getItem('accTinder'))){
-      //       if (touchEvent.changedTouches.length !== 1) { // We only care if one finger is used
-      //         return;
-      //       }
-      //       const posXEnd = touchEvent.changedTouches[0].clientX;
-      //       if (posXStart < posXEnd) {
-      //         if(posXStart<=25){
-      //         this.$store.commit('setIsHeaderSidebar',true);
-      //         }
-      //       } else if (posXStart > posXEnd) {
-      //         this.$store.commit('setIsHeaderSidebar',false);
-      //       }
-      //     }
-      //   }
-      // },
+      touchStart (touchEvent) {
+        if(localStorage.getItem('accTinder')){
+          if('accInfo' in JSON.parse(localStorage.getItem('accTinder'))){
+            if (touchEvent.changedTouches.length !== 1) { // We only care if one finger is used
+              return;
+            }
+            const posXStart = touchEvent.changedTouches[0].clientX;
+
+              addEventListener('touchend', (touchEvent) => this.touchEnd(touchEvent, posXStart), {once: true});
+          }
+        }
+
+      },
+
+      touchEnd (touchEvent, posXStart) {
+        if(localStorage.getItem('accTinder')){
+          if('accInfo' in JSON.parse(localStorage.getItem('accTinder'))){
+            if (touchEvent.changedTouches.length !== 1) { // We only care if one finger is used
+              return;
+            }
+            const posXEnd = touchEvent.changedTouches[0].clientX;
+            if (posXStart < posXEnd) {
+              // if(posXStart<=25){
+              // this.$store.commit('setIsHeaderSidebar',true);
+              // }
+            } else if (posXStart > posXEnd) {
+              this.$store.commit('setIsHeaderSidebar',false);
+            }
+          }
+        }
+      },
      async toRefreshToken(){
        const userToken={
          headers: {
@@ -149,6 +149,9 @@
     watch:{
       '$store.state.isDarkTheme'(){
         this.changeColorScheme();
+      },
+      '$store.state.isShowExitAlert'(){
+        this.$router.push('/');
       }
     }
   }

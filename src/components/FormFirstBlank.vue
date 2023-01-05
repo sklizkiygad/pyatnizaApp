@@ -52,17 +52,20 @@
                     <label>Город</label>
                 </div>
 
-                    <div class="mb-4">
-                        <label>Диапазон поиска</label>
-                        <div class="slider-range-count">
+                <div class="form-floating mb-4">
+                    <label>Диапазон поиска</label>
+                    <div class="slider-range-count">
 
-                            <p>От:{{inputRangeFrom}}</p>
-                            <p>До:{{inputRangeTo}}</p>
+                        <p>От:{{inputRangeFrom}}</p>
+                        <p>До:{{inputRangeTo}}</p>
 
-                        </div>
+                    </div>
+                    <div class="slider-range-count__ranges">
                         <input type="range" min="18" max="60" v-model="inputRangeFrom" @change="checkRange" class="slider" id="lower">
                         <input type="range" min="18" max="60" v-model="inputRangeTo" @change="checkRange" class="slider" id="higher">
                     </div>
+
+                </div>
 
                 <div class="form-floating mb-4">
                     <textarea v-model="inputAbout" class="form-textarea" cols="30" rows="10"></textarea>
@@ -184,7 +187,7 @@
                    birthday:this.inputBirthDate,
                    min_age:	this.inputRangeFrom,
                    max_age: this.inputRangeTo,
-                   about:'ghghghgh',
+                   about:this.inputAbout,
                    orientation:this.inputOrientation
                }
                await axios.post(`${this.$store.state.mainServer}/api/user-profile/create`,regInfo, {
@@ -262,6 +265,17 @@
             this.$store.commit('setIsLoading',true);
             // this.checkIsProfileExist();
             this.getCitiesList();
+        },
+        watch:{
+            inputGender(){
+                if(this.inputGender == 20){
+                    document.documentElement.style.setProperty('--main-color', this.$store.state.femaleColor);
+                }
+                else{
+                    document.documentElement.style.setProperty('--main-color',  this.$store.state.maleColor);
+                }
+            }
+
         }
 
     }
@@ -271,5 +285,14 @@
     @import "../assets/css/vendors/range-slider.css";
     #profileImg{
         display: none;
+    }
+    .slider-range-count__ranges{
+        position: relative;
+        bottom: 35px;
+        width: 90%;
+        left: 5%;
+    }
+    .btn-solid{
+        background-color: var(--main-color) !important;
     }
 </style>

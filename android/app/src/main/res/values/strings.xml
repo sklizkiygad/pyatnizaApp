@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Пятница</string>
+    <string name="title_activity_main">Пятница</string>
+    <string name="package_name">pyat.ni.za</string>
+    <string name="custom_url_scheme">pyat.ni.za</string>
+</resources>
