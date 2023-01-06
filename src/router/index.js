@@ -10,6 +10,9 @@ import AddPhotoPage from "@/pages/AddPhotoPage";
 import ChatsPage from "@/pages/ChatsPage";
 import ChatPage from "@/pages/ChatPage";
 import CandidatePage from "@/pages/CandidatePage";
+import AboutUsPage from "@/pages/AboutUsPage";
+import SettingsPage from "@/components/SettingsPage";
+import NotificationsPage from "@/pages/NotificationsPage";
 
 
 
@@ -66,6 +69,21 @@ const routes = [
   {
     path: '/candidate/:id',
     component: CandidatePage
+  },
+
+  {
+    path: '/about',
+    component: AboutUsPage
+  },
+
+  {
+    path: '/settings',
+    component: SettingsPage
+  },
+
+  {
+    path: '/notifications',
+    component: NotificationsPage
   },
 
 ]

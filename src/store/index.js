@@ -17,7 +17,8 @@ export default new Vuex.Store({
     maleColor:'#6ba6c2',
     isWatchPhoto:false,
     isShowExitAlert:false,
-    isTraining:false
+    isTraining:false,
+    isNotificationModal:false
 
   },
   getters: {
@@ -60,6 +61,9 @@ export default new Vuex.Store({
     setIsTraining(state,isIt){
       state.isTraining=isIt;
     },
+    setIsNotificationModal(state,isIt){
+      state.isNotificationModal=isIt
+    }
 
 
   },

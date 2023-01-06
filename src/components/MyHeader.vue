@@ -13,8 +13,8 @@
         <div class="header-option">
             <ul>
 
-                <li>
-                    <router-link to="/"><i class="iconly-Notification icli"></i></router-link>
+                <li @click="openNotificationsModal">
+                    <i  class="iconly-Notification icli"></i>
                 </li>
                 <li @click="playTrain">
                     <i class="iconly-Info-Circle icli"></i>
@@ -34,6 +34,10 @@
             playTrain(){
                 this.$store.commit('setIsTraining',true)
                 this.$router.push('/')
+            },
+            openNotificationsModal(){
+                this.$store.commit('setIsNotificationModal',true)
+
             }
         }
     }

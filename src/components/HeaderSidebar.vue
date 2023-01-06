@@ -56,7 +56,7 @@
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/">
+                    <router-link to="/notifications">
                         <i class="iconly-Notification icli"></i>
                         <div class="content">
                             <h4>Уведомления</h4>
@@ -65,7 +65,7 @@
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/">
+                    <router-link to="/settings">
                         <i class="iconly-Setting icli"></i>
                         <div class="content">
                             <h4>Настройки</h4>
@@ -77,7 +77,7 @@
             <div class="divider"></div>
             <ul class="link-section">
                 <li>
-                    <router-link to="/">
+                    <router-link to="/about">
                         <i class="iconly-Info-Square icli"></i>
                         <div class="content">
                             <h4>О нас</h4>
@@ -85,15 +85,7 @@
                         </div>
                     </router-link>
                 </li>
-                <li>
-                    <router-link to="/">
-                        <i class="iconly-Call icli"></i>
-                        <div class="content">
-                            <h4>Помощь</h4>
-                            <h6>Связаться с оператором</h6>
-                        </div>
-                    </router-link>
-                </li>
+
                 <li>
                     <div class="justify-content-center d-flex w-100">
                         <a class="btn btn-danger text-uppercase" @click="isExit">Выйти</a>

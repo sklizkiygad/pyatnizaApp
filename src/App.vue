@@ -2,6 +2,7 @@
   <div id="app" @touchstart="touchStart" @touchEndMethod="touchEnd">
     <MyLoader/>
     <Training/>
+    <NotificationModal/>
     <IsExitBlock/>
     <AlertBlock/>
     <HeaderSidebar/>
@@ -16,6 +17,7 @@
   import HeaderSidebar from "@/components/HeaderSidebar";
   import IsExitBlock from "@/components/IsExitBlock";
   import Training from "@/components/Training";
+  import NotificationModal from "@/components/NotificationModal";
   import axios from "axios";
 
   // require("./assets/css/vendors/bootstrap.css");
@@ -35,7 +37,8 @@
       AlertBlock,
       MyLoader,
       HeaderSidebar,
-      Training
+      Training,
+      NotificationModal
     },
     methods:{
       touchStart (touchEvent) {
