@@ -114,10 +114,36 @@
                 return this.cards[this.index + 1]
             },
 
+
         },
         watch:{
             index(){
                  this.checkIsEnd()
+            },
+            '$store.state.isTraining'(){
+                if(this.$store.state.isTraining && !this.cards.length){
+
+                    this.cards.push({"id": 9,
+                        "name": "Woman1",
+                        "gender": 20,
+                        "photo": null,
+                        "user_id": 6,
+                        "city_id": 3,
+                        "birthday": "2000-10-24 13:06:47",
+                        "created_at": "2022-10-24 13:07:04",
+                        "updated_at": "2022-10-24 13:07:13",
+                        "min_age": 18,
+                        "max_age": 34,
+                        "about": null,
+                        "orientation": 50})
+
+                    this.isReachEnd=false;
+                }
+                else{
+                    this.cards=[]
+                    this.isReachEnd=true;
+                }
+
             }
         },
         methods: {
@@ -419,7 +445,7 @@
         align-items: center;
         bottom: 55px;
         width: 100%;
-        padding: 15px;
+        padding: 25px;
     }
 
     .card__text h2{

@@ -44,7 +44,7 @@
         height: 100%;
         padding: 10px;
         border-radius: 3px;
-        background: rgba(236, 233, 233, 0.67);
+        background: rgba(236, 233, 233, 1);
     }
     .filter-content{
         margin-top: 0;

@@ -6,19 +6,45 @@
 
         <div class="training__text-arrows">
         <div class="training__text">
-           <h1 class="text-back">Отменить оценку</h1>
-           <h1 class="text-diss">Не понравился</h1>
-            <h1 class="text-like">Понравился</h1>
-           <h1 class="text-super">Суперлайк</h1>
+
+
+                <div class="btn btn--decline" >
+                    <p>Отменить оценку</p>
+                    <img src="../assets/tinimg/rewind.png" alt="">
+
+                </div>
+                <div class="btn btn--skip" >
+                    <p>Не понравился</p>
+                    <img src="../assets/tinimg/nope.png" alt="">
+
+                </div>
+                <div class="btn btn--like" >
+                    <p>Понравился</p>
+                    <img src="../assets/tinimg/like.png" alt="">
+
+                </div>
+                <div class="btn btn--super" >
+                    <p>Суперлайк</p>
+                    <img src="../assets/tinimg/super-like.png" alt="">
+
+                </div>
+
+
+
+
+<!--           <h1 class="text-back">Отменить оценку</h1>-->
+<!--           <h1 class="text-diss">Не понравился</h1>-->
+<!--            <h1 class="text-like">Понравился</h1>-->
+<!--           <h1 class="text-super">Суперлайк</h1>-->
 
         </div>
-        <div class="training__arrows">
-        <div class="arrow-3 back"></div>
-        <div class="arrow-3 diss"></div>
-            <div class="arrow-3 like"></div>
-        <div class="arrow-3 super"></div>
+<!--        <div class="training__arrows">-->
+<!--        <div class="arrow-3 back"></div>-->
+<!--        <div class="arrow-3 diss"></div>-->
+<!--            <div class="arrow-3 like"></div>-->
+<!--        <div class="arrow-3 super"></div>-->
 
-        </div>
+<!--        </div>-->
         </div>
     </div>
     </transition>
@@ -51,7 +77,7 @@
 }
 
 .arrow-3 {
-    width:73px;
+    width:78px;
     height:30px;
     display: flex;
     bottom: 100px;
@@ -126,5 +152,21 @@
 .text-like{
     color: #67b992;
 }
+
+.btn{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 500px;
+}
+.btn p{
+    color: whitesmoke;
+
+}
+    .btn img{
+        height: 20px;
+        width: 20px;
+    }
+
 
 </style>

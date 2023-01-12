@@ -14,7 +14,10 @@
     import MyHeader from "@/components/MyHeader";
     export default {
         name:'AboutUsPage',
-        components:{MyHeader}
+        components:{MyHeader},
+        mounted() {
+            this.$store.commit('setIsHeaderSidebar',false)
+        }
 
     }
 </script>

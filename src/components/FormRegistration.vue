@@ -10,7 +10,11 @@
 
             <div class="form-floating mb-4">
 <!--                <input type="text" class="form-control" placeholder="Телефон" v-model="inputPhone">-->
-                <masked-input mask="\+\7 (111) 111-11-11" class="form-control" placeholder="Телефон" v-model="inputPhone" />
+<!--                <masked-input mask="\+\7 (111) 111-11-11" class="form-control" placeholder="Телефон" v-model="inputPhone" />-->
+                <phone-mask-input
+                        v-model="inputPhone"
+                        inputClass="form-control"
+                />
                 <label>Телефон</label>
 
             </div>
@@ -46,11 +50,11 @@
 <script>
     import checkFormMixin from "@/mixins/checkFormMixin";
     import axios from "axios";
-    import MaskedInput from 'vue-masked-input'
+    import PhoneMaskInput from  "vue-phone-mask-input";
 
     export default {
         mixins:[checkFormMixin],
-        components:{MaskedInput},
+        components:{PhoneMaskInput},
         data(){
             return{
                 inputEmail:'',

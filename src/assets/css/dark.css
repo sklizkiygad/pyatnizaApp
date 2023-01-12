@@ -2561,7 +2561,11 @@
   .filter-content .item {
     padding: 15px;
     background-color: #232323;
-    border-radius: 3px; }
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.2);
+  }
   .filter-content .item + .item {
     margin-top: 15px; }
 

@@ -15,6 +15,9 @@ import Notifications from "@/components/Notifications";
 
         methods:{
 
+        },
+        mounted() {
+            this.$store.commit('setIsHeaderSidebar',false)
         }
     }
 </script>

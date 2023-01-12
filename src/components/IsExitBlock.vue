@@ -51,4 +51,8 @@
         background: rgba(1,1,1,0.5);
         z-index: 100;
     }
+
+    .btn{
+        width: 100%;
+    }
 </style>

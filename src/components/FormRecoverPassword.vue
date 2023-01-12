@@ -16,6 +16,7 @@
     </section>
         <section v-else class="form-section px-15 top-space section-b-space">
             <h1>Проверьте указанную почту. На нее было отправлено письмо с дальнейшими действиями</h1>
+            <button type="button" class="btn btn-solid w-100" @click="$router.push('/')">Авторизоваться</button>
     </section>
     </div>
 </template>

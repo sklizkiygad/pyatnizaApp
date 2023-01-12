@@ -91,6 +91,8 @@
 
         mounted() {
             this.checkGenderColor();
+            this.$store.commit('setIsHeaderSidebar',false)
+
         }
     }
 </script>
